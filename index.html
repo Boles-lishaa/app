@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    HOME
+{% endblock %}
+
+
+{% block main %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <form action="/" method="post">
+
+                    <td><input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="name" placeholder="ADD_CHILD" type="text"></td>
+                   <td> <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="age" placeholder="his/her Age (in days)" type="text"> </td>
+                   <td> <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="disease" placeholder="his/her Disease" type="text"> </td>
+                   <div class="mb-3">
+                    <select class="form-select mx-auto w-auto" name="symbol">
+                        <option disabled="" selected="" >Specialty</option>
+                        {% for specialty in specialties %}
+                            <option value="{{ specialty.Specialty }}">{{ specialty.Specialty }}</option>
+                        {% endfor %}
+
+                        </select>
+                    </div>
+
+                    <input class="btn btn-primary" type="submit" value="ADD">
+
+                </form>
+            </tr>
+
+
+            <th class="text-start">Name</th>
+            <th class="text-end">Age (in DAYS)</th>
+            <th class="text-end">Disease</th>
+            <th class="text_end">Doctors he/she needs</th>
+
+        </thead>
+        <tbody>
+
+
+            {% for child in children %}
+                <tr>
+                    <td>{{ child.name }}</td>
+                    <td>{{ child.age }}</td>
+                    <td>{{ child.disease }}</td>
+                    <td>
+                        <form action="/doctors" method="post" id="{{ child.id }}">
+                            <input type="hidden" name="form_id" value="{{ child.id }}">
+                            <input class="btn btn-primary" type="submit" value="Show">
+                        </form>
+                    </td>
+
+                </tr>
+
+
+            {% endfor %}
+            <script type="module">
+
+            // Import the functions you need from the SDKs you need
+
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+
+            // TODO: Add SDKs for Firebase products that you want to use
+
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+
+            // Your web app's Firebase configuration
+
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+            const firebaseConfig = {
+
+                apiKey: "AIzaSyDLXt8U--gUtUB2beHuppW71bbFS7Ir0-M",
+
+                authDomain: "hosp-4fe6a.firebaseapp.com",
+
+                projectId: "hosp-4fe6a",
+
+                storageBucket: "hosp-4fe6a.firebasestorage.app",
+
+                messagingSenderId: "875936617731",
+
+                appId: "1:875936617731:web:1d9748f4be6dd659fa8536",
+
+                measurementId: "G-4GFV9QYLNP"
+
+            };
+
+
+            // Initialize Firebase
+
+            const app = initializeApp(firebaseConfig);
+
+            const analytics = getAnalytics(app);
+
+            </script>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="border-0 fw-bold center " colspan="3">We hope best luck!</td>
+
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+
+{% endblock %}
